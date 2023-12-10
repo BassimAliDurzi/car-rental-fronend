@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import "bootstrap/dist/css/bootstrap.css"
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<h2 className="text-warning">Fortnox Car Rental</h2>);
+root.render(<App />);
 
