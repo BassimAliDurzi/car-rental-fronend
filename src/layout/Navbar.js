@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ loggedIn, onLogout }) => {
   return (
     <nav className="navbar navbar-expand-sm navbar-dark text-bg-warning">
       <div className="container-fluid">
@@ -13,15 +13,23 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="mynavbar">
           <ul className="navbar-nav ms-auto">
+            {loggedIn && (
+              <li className="nav-item">
+                <Link to="/all-car-rentals" className="nav-link text-success">
+                  All Car Rentals
+                </Link>
+              </li>
+            )}
             <li className="nav-item">
-              <Link to="/all-car-rentals" className="nav-link text-success">
-                All Car Rentals
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/login" className="nav-link text-success">
-                Login
-              </Link>
+              {!loggedIn ? (
+                <Link to="/login" className="nav-link text-success">
+                  Login
+                </Link>
+              ) : (
+                <button className="nav-link text-success" onClick={onLogout}>
+                  Logout
+                </button>
+              )}
             </li>
             <li className="rent-car">
               <Link to="/rentCar" className="nav-link text-success">

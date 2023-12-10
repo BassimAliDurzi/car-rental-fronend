@@ -21,8 +21,7 @@ const AllCarRentals = () => {
     } catch (error) {
       console.error('Error fetching car rentals:', error);
     }
-  };
-
+  }; 
   const tableHeaderStyle = {
     fontSize: '16px',
     fontFamily: 'Verdana, sans-serif',
