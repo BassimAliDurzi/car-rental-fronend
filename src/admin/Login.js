@@ -80,10 +80,13 @@ const Login = () => {
           />
           <div className="valid-feedback">Valid.</div>
           <div className="invalid-feedback">Please fill out this field.</div>
-        </div>
-        <button type="submit" className="btn btn-outline-warning btn-lg">
+        </div >
+        <div className="container mt-3 text-center">
+        <button type="submit" className="btn btn-outline-warning w-50">
           Login
         </button>
+        </div>
+
       </form>
     </div>
   );
