@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './layout/Navbar';
-import Login from './layout/Login';
+import Login from './admin/Login';
 import RentCar from './layout/RentCar';
 import AllCarRentals from './admin/AllCarRentals';
 
