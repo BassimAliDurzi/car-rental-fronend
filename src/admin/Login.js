@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
   const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
@@ -20,28 +19,32 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
 
       if (response.ok) {
-        console.log('Login successful');
-
-        navigate('/all-car-rentals');
-
+        setLoginMessage("Login successful");
+        navigate("/all-car-rentals");
       } else {
-        console.error('Login failed');
+        setLoginMessage("Login failed");
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      setLoginMessage("Error during login");
+      console.error("Error during login:", error);
     }
   };
   return (
     <div className="container mt-3">
+      
+      <div>
+        {loginMessage && <p class="text-danger">{loginMessage}</p>}
+        </div>
+
       <h6>Admin only*</h6>
       <form onSubmit={handleSubmit} className="was-validated">
         <div className="mb-3 mt-3">
@@ -79,7 +82,7 @@ const Login = () => {
           <div className="invalid-feedback">Please fill out this field.</div>
         </div>
         <button type="submit" className="btn btn-outline-warning btn-lg">
-          Submit
+          Login
         </button>
       </form>
     </div>
