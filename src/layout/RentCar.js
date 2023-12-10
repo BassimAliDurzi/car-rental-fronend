@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RentCar = () => {
   const [selectedCar, setSelectedCar] = useState('');
@@ -7,50 +8,40 @@ const RentCar = () => {
   const [driverName, setDriverName] = useState('');
   const [driverAge, setDriverAge] = useState('');
   const [cost, setCost] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-
-    const startDate = new Date(pickupDate);
-    const endDate = new Date(returnDate);
-
-    if (startDate < new Date()) {
-      alert('Pickup date can not be today or in the past.');
+    if (!selectedCar || !pickupDate || !returnDate || !driverName || !driverAge) {
+      alert('All fields are required');
       return;
     }
 
-    if (endDate <= startDate) {
-      alert('Return date must be after pickup date.');
-      return;
-    }
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/FortnoxCarRental', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customerName: driverName,
+          age: parseInt(driverAge),
+          carModel: selectedCar,
+          pickUpdate: pickupDate,
+          returnDate: returnDate,
+        }),
+      });
 
-    if (!/^[A-Za-z\s]+$/.test(driverName)) {
-        alert('Driver name must be text.');
-        return;
+      if (response.ok) {
+        console.log('Car rental submitted successfully');
+        navigate('/success');
+      } else {
+        console.error('Failed to submit car rental');
       }
-
-    if (isNaN(driverAge) || parseInt(driverAge) < 18) {
-      alert('Driver age must be 18 or older.');
-      return;
+    } catch (error) {
+      console.error('Error during car rental submission:', error);
     }
-
-    // Perform server-side validations and submit to the database
-    // ...
-
-    // For demonstration purposes, calculate a sample cost
-    const carPrices = {
-      'Volvo S60': 1500,
-      'Volkswagen Golf': 1333,
-      'Ford Mustang': 3000,
-      'Ford Transit': 2400,
-    };
-
-    const selectedCarPrice = carPrices[selectedCar] || 0;
-    const rentalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-    const totalCost = selectedCarPrice * rentalDays;
-
-    setCost(totalCost);
   };
 
   return (
