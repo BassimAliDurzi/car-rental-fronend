@@ -9,13 +9,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        <header style={headerStyle}>
-          <h3
-            className="text-body"
-            style={{ fontFamily: 'Playfair Display, serif', fontWeight: 'bold',
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'}}>
-            Fortnox Car Rental App
-          </h3>
+        <header>
         </header>
         <Navbar />
         <Routes>
@@ -28,10 +22,6 @@ const App = () => {
   );
 };
 
-const headerStyle = {
-  backgroundColor: "#ffbf00",
-  padding: "10px",
-  textAlign: "center",
-};
+
 
 export default App;
